@@ -38,8 +38,32 @@ for element in p:
 print(p)
 print(p2)
 
-s = 'My name is Kyrylo and I study Python'
+s = 'My name is Kyrylo and I study Python and it is good. The weather is good.'
 i = s.find('y')
 print(i)
 print(s.find('y', i + 1))
 # Вывести все индексы буквы 'y'
+
+print('Индексы через while')
+# достоинство: может искать слова
+# недостатки: сложнее понять как грамотно построить
+what_we_seek = 'is good'
+i = s.find(what_we_seek)
+while i != -1:  # ищем до тех пор, пока find что-то находит. Если не найдёт - вернёт -1 и мы выйдем из цикла
+    print(i)
+    i = s.find(what_we_seek, i + 1)
+
+
+print('Индексы через for')
+# достоинство: легко находит буквы
+# недостатки: слов находить сложно
+for i, letter in enumerate(s):
+    if letter == 'y':
+         print(i)
+
+# как работает enumerate и почему в for мы указываем два значения через запятую
+
+for t in enumerate(s):
+    print(type(t), t)
+    i, letter = t
+    print(i, letter)
