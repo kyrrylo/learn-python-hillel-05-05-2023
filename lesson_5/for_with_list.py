@@ -47,11 +47,19 @@ print(s.find('y', i + 1))
 print('Индексы через while')
 # достоинство: может искать слова
 # недостатки: сложнее понять как грамотно построить
-what_we_seek = 'is good'
+what_we_seek = '('
 i = s.find(what_we_seek)
+new_s = ''
 while i != -1:  # ищем до тех пор, пока find что-то находит. Если не найдёт - вернёт -1 и мы выйдем из цикла
     print(i)
     i = s.find(what_we_seek, i + 1)
+    if what_we_seek == '(' and i != -1:
+        what_we_seek = ')'
+    elif what_we_seek == ')' and i != -1:
+        what_we_seek = '('
+
+new_s = s[:11] + s[50:]  # слайсы гораздо быстрее и эффективнее чем replace
+s.replace('Kyrylo and I study Python and it is good', '')
 
 
 print('Индексы через for')
