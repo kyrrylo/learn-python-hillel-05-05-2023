@@ -3,7 +3,8 @@ test_strings = [
     'Я рад что ты пришел (нет) :( это было ужас... :',
     'аха(фывыф фывфыв) слово',
     'Hello (text) :) (hi) more text!',
-    'Hello (text фыв) :) ( фывф hi) more text!'
+    'Hello (text фыв) :) ( фывф hi) more text!',
+    'Hello (text фыв) :)( ( фывф hi) more text!'
 ]
 
 for s in test_strings:
