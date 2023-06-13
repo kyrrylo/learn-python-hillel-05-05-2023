@@ -1,127 +1,139 @@
-my_number_list = [2, 5, 4, 0, -5, -100, -3]
-my_str_list = 'Today we look into lambda functions'.lower().split()
+import math
 
-print('=' * 10, '\nОбычная сортировка')
-# сортировка по возрастанию (ascending)
-print(sorted(my_number_list))
-# сортировка по убыванию (descending)
-print(sorted(my_number_list, reverse=True))
+if __name__ == '__main__':
 
-# сортировка по возрастанию (ascending)
-print(sorted(my_str_list))
-# сортировка по убыванию (descending)
-print(sorted(my_str_list, reverse=True))
+    my_number_list = [2, 5, 4, 0, -5, -100, -3]
+    my_str_list = 'Today we look into lambda functions'.lower().split()
 
-my_number_tuple = tuple(my_number_list)
+    print('=' * 10, '\nОбычная сортировка')
+    # сортировка по возрастанию (ascending)
+    print(sorted(my_number_list))
+    # сортировка по убыванию (descending)
+    print(sorted(my_number_list, reverse=True))
 
-# .method()
-# function()
+    # сортировка по возрастанию (ascending)
+    print(sorted(my_str_list))
+    # сортировка по убыванию (descending)
+    print(sorted(my_str_list, reverse=True))
 
-sorted_tuple = sorted(my_number_tuple)
-print(type(sorted_tuple), sorted_tuple)
+    my_number_tuple = tuple(my_number_list)
 
-my_number_set = set(my_number_list)
-sorted_set = sorted(my_number_set)
-print(type(sorted_set), sorted_set)
+    # .method()
+    # function()
 
+    sorted_tuple = sorted(my_number_tuple)
+    print(type(sorted_tuple), sorted_tuple)
 
-print(my_number_list)
-# сортирует на месте, перетирая предыдущее состояние списка. Не возвращает ничего
-# в остальном - полностью идентичен методу sorted
-print(my_number_list.sort())
-print(my_number_list)
-# как красиво сортировать dictionary - с помощью lambda функций (чуть позже вернёмся)
-# по умолчанию сортируются только ключами и это мало-применимо
-
-print('=' * 10, '\nСортировка по ключу')
-
-# key: Callable # когда параметр/аргумент функции должен быть сам функцией, пишут Callable (вызываемый)
-def example_function():
-    print('Example function is called')
-    return 1
+    my_number_set = set(my_number_list)
+    sorted_set = sorted(my_number_set)
+    print(type(sorted_set), sorted_set)
 
 
-example_function()
-x = example_function
-print('X is assigned example function')
-x()
-example_function()
+    print(my_number_list)
+    # сортирует на месте, перетирая предыдущее состояние списка. Не возвращает ничего
+    # в остальном - полностью идентичен методу sorted
+    print(my_number_list.sort())
+    print(my_number_list)
+    # как красиво сортировать dictionary - с помощью lambda функций (чуть позже вернёмся)
+    # по умолчанию сортируются только ключами и это мало-применимо
+
+    print('=' * 10, '\nСортировка по ключу')
+
+    # key: Callable # когда параметр/аргумент функции должен быть сам функцией, пишут Callable (вызываемый)
+    def example_function():
+        print('Example function is called')
+        return 1
 
 
-def abs_function(element):
-    return abs(element)
+    example_function()
+    x = example_function
+    print('X is assigned example function')
+    x()
+    example_function()
 
 
-# key принимает функцию, которая обязана предоставлять значение используемое в сортировке.
-# Значение высчитывается с использованием самого элемента
-# После сортировки используются изначальные значения элментов, а не те которые использовались для сортировки
-print(sorted(my_number_list, key=abs_function))
-print(sorted(my_number_list, key=abs))
+    def abs_function(element):
+        return abs(element)
 
 
-def square_function(element):
-    return pow(element, 2)
+    # key принимает функцию, которая обязана предоставлять значение используемое в сортировке.
+    # Значение высчитывается с использованием самого элемента
+    # После сортировки используются изначальные значения элментов, а не те которые использовались для сортировки
+    print(sorted(my_number_list, key=abs_function))
+    print(sorted(my_number_list, key=abs))
 
 
-print(sorted(my_number_list, key=square_function))
-
-d = {
-    "Monitors": 3,
-    "Keyboard": 4,
-    "Headset": 6,
-    "Laptop": 2
-}
+    def square_function(element):
+        return pow(element, 2)
 
 
-def dict_element_getter(element):
-    print(element, type(element))
-    # то что return-ит функция из key будет использовано для сортировки
-    return element[1]
+    print(sorted(my_number_list, key=square_function))
+
+    d = {
+        "Monitors": 3,
+        "Keyboard": 4,
+        "Headset": 6,
+        "Laptop": 2
+    }
 
 
-# Словарь можно создать "легко" из списка парных кортежей.
-# Первый элемент кортежа станет ключом, второй - значением
-sorted_dictionary = dict(sorted(d.items(), key=dict_element_getter))
-print(sorted_dictionary, type(sorted_dictionary))
-
-# lambda-функции это так называемые однострочные, простые, анонимные функции
-# у них нет имени они не рассчитаны на повторные вызовы
-
-# lambda <входные параметры через запятую>: <что функция возвращает>
-# lambda element: element[1]
-print('Lambda sorting')
-sorted_dictionary = dict(sorted(d.items(), key=lambda element: element[1]))
-print(sorted_dictionary, type(sorted_dictionary))
-
-# lambda <входные параметры через запятую>: <что функция возвращает>
-lambda_f = lambda x, y: x + y
-print(lambda_f(3, 4))
-print(lambda_f(11, 4))
-
-# тернарное выражение (ternary expression/operator | one-line conditional expression)
-# <возвращаемое True значение> if <условное выражение> else <возвращаемое False значение>
-x = 10 if 5 > 15 else 11
-print(x)
-
-print('Условное выражение в одну строчку в lambda функции')
-# лямбда функция принимает два параметра x, y
-# возвращает произведение x и y если y != 0, в противном случае возвращает x
-another_lambda_f = lambda x, y: x * y if y != 0 else x
-print(another_lambda_f(5, 2))  # 10 потому что y != 0
-print(another_lambda_f(5, 0))  # 5 потому что y == 0
+    def dict_element_getter(element):
+        print(element, type(element))
+        # то что return-ит функция из key будет использовано для сортировки
+        return element[1]
 
 
-def not_lambda_f(x, y):
-    if y != 0:
-        return x * y
-    return x
+    # Словарь можно создать "легко" из списка парных кортежей.
+    # Первый элемент кортежа станет ключом, второй - значением
+    sorted_dictionary = dict(sorted(d.items(), key=dict_element_getter))
+    print(sorted_dictionary, type(sorted_dictionary))
+
+    # lambda-функции это так называемые однострочные, простые, анонимные функции
+    # у них нет имени они не рассчитаны на повторные вызовы
+
+    # lambda <входные параметры через запятую>: <что функция возвращает>
+    # lambda element: element[1]
+    print('Lambda sorting')
+    sorted_dictionary = dict(sorted(d.items(), key=lambda element: element[1]))
+    print(sorted_dictionary, type(sorted_dictionary))
+
+    # lambda <входные параметры через запятую>: <что функция возвращает>
+    lambda_f = lambda x, y: x + y
+    print(lambda_f(3, 4))
+    print(lambda_f(11, 4))
+
+    # тернарное выражение (ternary expression/operator | one-line conditional expression)
+    # <возвращаемое True значение> if <условное выражение> else <возвращаемое False значение>
+    x = 10 if 5 > 15 else 11
+    print(x)
+
+    print('Условное выражение в одну строчку в lambda функции')
+    # лямбда функция принимает два параметра x, y
+    # возвращает произведение x и y если y != 0, в противном случае возвращает x
+    another_lambda_f = lambda x, y: x * y if y != 0 else x
+    print(another_lambda_f(5, 2))  # 10 потому что y != 0
+    print(another_lambda_f(5, 0))  # 5 потому что y == 0
 
 
-print(not_lambda_f(5, 2))
-print(not_lambda_f(5, 0))
+    def not_lambda_f(x, y):
+        if y != 0:
+            return x * y
+        return x
 
-print(max(my_number_list, key=lambda x: pow(x, 4)))
 
-lambda_f_dict = {
-    ""
-}
+    print(not_lambda_f(5, 2))
+    print(not_lambda_f(5, 0))
+
+    print(max(my_number_list, key=lambda x: pow(x, 4)))
+
+    print('Lambda dictionary')
+    lambda_f_dict = {
+        "square_pow": lambda x: x ** 2,
+        "third_pow": lambda x: x ** 3,
+        "square_root": lambda x: math.sqrt(x)
+    }
+    print(lambda_f_dict['square_pow'](6))
+    print(lambda_f_dict['third_pow'](4))
+    print(lambda_f_dict['square_root'](36))
+    print(lambda_f_dict['square_root'](25))
+    print(lambda_f_dict['square_root'](81))
