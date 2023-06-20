@@ -1,4 +1,4 @@
-from random import choices, randint
+from random import choices, randint, random
 # Класс - это не просто набор функций
 # У класса обязан быть контекст в виде переменных
 # Эти переменные отличают объекты класса друг от друга и делают их разными
@@ -33,7 +33,7 @@ class Dog:
         self.hours_outdoors = 0
 
     def __str__(self):
-        starting_str = f"{self.breed} {self.name}, {self.age} "
+        starting_str = f"{self.breed.capitalize()} {self.name}, {self.age} "
         if self.age == 1:
             starting_str += "год"
         elif 2 <= self.age <= 4:
@@ -44,20 +44,49 @@ class Dog:
         return starting_str
 
     def bark(self, count: int):
+        # self.new_field = 3 - поля класса нужно объявлять только в init'e, остальные методы могут
+        # их менять или же читать
         if count > 0:
             barking_str = '-'.join(["гав"] * count).capitalize()
             print(f"{self.name} гавкает: {barking_str}!")
 
     def eat(self, food: str):
+        # print(self.new_field)
         if self.hungry:
             if food in self.preferred_food:
                 print(f"{self.name} кушает {food}")
                 self.hungry = False
             else:
-                self.bark(randint(1, 5))
                 print(f"{self.name} такое не ест: {food}")
+                self.bark(randint(1, 5))
         else:
             print(f"{self.name} не голоден")
+
+    def walk(self, alone: bool):
+        """
+        Собака гуляет
+        :param alone: если True, то собака гуляет одна, если False - то с хозяином
+        Если собака гуляла суммарно больше 3 часов, то она проголодалась
+        :return: если с хозяином - повышается настроение (у хозяина), если сама - None
+        """
+        if alone:
+            hours = randint(2, 6)
+            with_str = "сам"
+        else:
+            hours = randint(1, 3)
+            with_str = "с хозяином"
+        print(f"{self.name} гуляет {with_str} {hours} часов")
+        self.hours_outdoors += hours
+        if self.hours_outdoors > 3:
+            self.hungry = True
+        """то же самое, что ниже, но проще читать
+                if alone:
+                    return
+                else:
+                    return "Хорошее настроение!"
+                """
+        return "Хорошее настроение!" if not alone else None
+
 
 
 if __name__ == '__main__':
@@ -82,8 +111,21 @@ if __name__ == '__main__':
     print(z)
 
     potential_food = ['каша', 'хлеб', 'рыба', 'борщ', 'сало', 'торт', 'яблоко']
+    print('Обычный день в жизни одной собаки :)')
+    print('-' * 20)
     for dog in dogs:
-        print(f'Кормим {dog.name}')
-        for random_food in choices(potential_food, k=3):
-            dog.eat(random_food)
-        print(dog)
+        events_for_dog = randint(1, 8)
+        for _ in range(events_for_dog):
+            if random() > 0.5:
+                print(f'Кормим {dog.name}')
+                for random_food in choices(potential_food, k=3):
+                    dog.eat(random_food)
+            else:
+                if random() > 0.5:
+                    result = dog.walk(alone=True)
+                else:
+                    result = dog.walk(alone=False)
+                print(f'После прогулки хозяин понял, что: {result}')
+        print(f'Прошел день для: {dog}')
+        print('=' * 20)
+
