@@ -10,7 +10,16 @@ ALHABET = 'qwertyuiopasdfghjklzxcvbnm'
 # pandas - основная библиотека для работы с csv файлами
 # csv библиотека - базовая, со своими "моментами"
 
-def open_csv_file_dict(filename, to_print=True):
+def open_csv_file_dict(filename, to_print=True) -> list:
+    """
+    Функция читает ряды csv файла как dict (с заголовками),
+     возвращает их и выводит на экран при надобности
+    :param filename: путь к файлу, который нужно открыть
+    :param to_print: флаг выводить ли на экран
+    :return: возвращаем содержимое файла списком рядов,
+             каждый ряд - словарь,
+             ключи словаря - заголовки csv файла
+    """
     with open(filename, newline='') as csv_file:
         reader = csv.DictReader(csv_file)
         rows = list(reader)
@@ -84,7 +93,7 @@ def optimal_write_dict_rows(filename: str):
 
 if __name__ == '__main__':
     open_csv_file('simple_csv_file.csv')
-    open_csv_file_dict('simple_csv_file.csv')
+    x = open_csv_file_dict('simple_csv_file.csv')
 
     generated_rows, generated_header = generate_csv_rows()
     write_csv_rows('random_csv_file_no_headers.csv', generated_rows, generated_header)
