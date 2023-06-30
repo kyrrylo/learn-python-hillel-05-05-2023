@@ -1,7 +1,7 @@
 import csv
 from read_csv import open_csv_file_dict
 
-# from uuid import uuid4
+from uuid import uuid4
 # uuid4() альтернативный вариант создания уникальных айдишников для индексов
 
 
@@ -60,6 +60,13 @@ if __name__ == '__main__':
     # открываем csv файл и считываем данные из него
     children_data = open_csv_file_dict('children.csv', to_print=False)
 
+    # как сделать из списка словарь словарей
+    unique_position_id_index = dict()
+    unique_uuid_index = dict()
+    for _id, row in enumerate(children_data):
+        unique_position_id_index[_id] = row
+        unique_uuid_index[uuid4().int] = row
+    print(unique_position_id_index)
     # unique id (в качестве ссылок на данные, чтобы их не дублировать
     # дублирование чревато дополнительным занимаемым местом,
     # а так же неконсистентность редактирования данных
