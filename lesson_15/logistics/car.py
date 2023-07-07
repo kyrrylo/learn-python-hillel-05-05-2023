@@ -14,7 +14,7 @@ class Car:
     def __str__(self):
         return f'Машина {self.name}, владелец {self.owner.name}'
 
-    @property
+    @property  # getter
     def capacity(self):
         return self.__capacity
 
